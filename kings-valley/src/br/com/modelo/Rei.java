@@ -1,10 +1,10 @@
-package com.modelo;
+package br.com.modelo;
 
-public class Soldado {
+public class Rei {
 
 	private int posicao[];
 
-	public Soldado() {
+	public Rei() {
 		this.posicao = new int[2];
 	}
 
@@ -15,4 +15,5 @@ public class Soldado {
 	public void setPosicao(int posicao[]) {
 		this.posicao = posicao;
 	}
+
 }
