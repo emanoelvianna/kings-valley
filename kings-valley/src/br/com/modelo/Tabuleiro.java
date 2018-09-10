@@ -11,43 +11,65 @@ public class Tabuleiro {
   }
 
   public void mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
-    if (this.jogadaValida(linhaOrigem, colunaOrigem)) {
-      switch (deslocamento) {
-      case 0:
-        this.paraDireita(linhaOrigem, colunaOrigem);
-        break;
-      case 1:
-        this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
-        break;
-      case 2:
-        this.recuar(linhaOrigem, colunaOrigem);
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5:
-        break;
-      case 6:
-        this.avancar(linhaOrigem, colunaOrigem);
-        break;
-      case 7:
-        break;
-      }
-    } else {
-      System.out.println("[INFO] Jogada invalida!");
+    switch (deslocamento) {
+    case 0:
+      this.paraDireita(linhaOrigem, colunaOrigem);
+      break;
+    case 1:
+      this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
+      break;
+    case 2:
+      this.paraBaixo(linhaOrigem, colunaOrigem);
+      break;
+    case 3:
+      this.diagonalEsquerdaInferior(linhaOrigem, colunaOrigem);
+      break;
+    case 4:
+      this.paraEsquerda(linhaOrigem, colunaOrigem);
+      break;
+    case 5:
+      this.diagonalEsquerdaSuperior(linhaOrigem, colunaOrigem);
+      break;
+    case 6:
+      this.paraCima(linhaOrigem, colunaOrigem);
+      break;
+    case 7:
+      this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
+      break;
     }
+  }
+
+  private void diagonalDireitaSuperior(int linhaOrigem, int colunaOrigem) {
+    // TODO Auto-generated method stub
+  }
+
+  private void diagonalEsquerdaSuperior(int linhaOrigem, int colunaOrigem) {
+    // TODO Auto-generated method stub
+  }
+
+  private void paraEsquerda(int linhaOrigem, int colunaOrigem) {
+    // TODO Auto-generated method stub
   }
 
   private void diagonalDireitaInferior(int linhaOrigem, int colunaOrigem) {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
-    if (this.posicaoValida(linha - 1, linha - 1)) {
-      for (int i = coluna; i > 0; i--) {
-        if (this.ehPosicaoVazia(linhaOrigem, i - 1)) {
+    if (this.jogadaValida(linha + 1, coluna + 1)) {
+      for (int i = coluna; i > 0; i++) {
+        if (this.ehPosicaoVazia(linha + 1, i + 1)) {
+          celulas[linha - 1][i + 1] = peca;
+          celulas[linha][i] = "-";
+          linha = linha + 1;
+        } else {
+          break;
+        }
+      }
+    } else {
+      for (int i = coluna; i > TAMANHO; i--) {
+        if (this.ehPosicaoVazia(linha, i - 1)) {
           celulas[linha - 1][i - 1] = peca;
-          celulas[coluna][i] = "-";
+          celulas[linha][i] = "-";
           linha = linha - 1;
         } else {
           break;
@@ -56,7 +78,34 @@ public class Tabuleiro {
     }
   }
 
-  private void recuar(int linhaOrigem, int colunaOrigem) {
+  private void diagonalEsquerdaInferior(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    if (this.jogadaValida(linha - 1, coluna - 1)) {
+      for (int i = coluna; i > 0; i--) {
+        if (this.ehPosicaoVazia(linha - 1, i - 1)) {
+          celulas[linha - 1][i - 1] = peca;
+          celulas[linha][i] = "-";
+          linha = linha - 1;
+        } else {
+          break;
+        }
+      }
+    } else {
+      for (int i = coluna; i > TAMANHO; i++) {
+        if (this.ehPosicaoVazia(linha, i + 1)) {
+          celulas[linha + 1][i + 1] = peca;
+          celulas[linha][i] = "-";
+          linha = linha + 1;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+
+  private void paraBaixo(int linhaOrigem, int colunaOrigem) {
     String peca = celulas[linhaOrigem][colunaOrigem];
     if (!this.posicaoValida(linhaOrigem, colunaOrigem + 1)) {
       for (int i = colunaOrigem; i < TAMANHO; i++) {
@@ -79,7 +128,7 @@ public class Tabuleiro {
     }
   }
 
-  private void avancar(int linhaOrigem, int colunaOrigem) {
+  private void paraCima(int linhaOrigem, int colunaOrigem) {
     String peca = celulas[linhaOrigem][colunaOrigem];
     if (!this.posicaoValida(linhaOrigem, colunaOrigem + 1)) {
       for (int i = colunaOrigem; i > 0; i--) {
@@ -124,7 +173,7 @@ public class Tabuleiro {
 
   private boolean jogadaValida(int linha, int coluna) {
     if (posicaoValida(linha, coluna)) {
-      if (!ehPosicaoVazia(linha, coluna))
+      if (ehPosicaoVazia(linha, coluna))
         return true;
       else
         return false;

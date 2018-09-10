@@ -20,7 +20,11 @@ public class Servidor {
     tabuleiro.imprimirTabuleiro();
     tabuleiro.mover(3, 0, 6);
     tabuleiro.imprimirTabuleiro();
-    tabuleiro.mover(3, 3, 1);
+    tabuleiro.mover(3, 3, 3);
+    tabuleiro.imprimirTabuleiro();
+    tabuleiro.mover(4, 1, 3);
+    tabuleiro.imprimirTabuleiro();
+    tabuleiro.mover(1, 1, 1);
     tabuleiro.imprimirTabuleiro();
   }
 }
