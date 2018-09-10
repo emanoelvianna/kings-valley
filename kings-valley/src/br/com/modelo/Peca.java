@@ -1,12 +1,14 @@
 package br.com.modelo;
 
-public class Soldado {
+public class Peca {
 
+  private String cor;
   private String nome;
   private int posicaoX;
   private int posicaoY;
 
-  public Soldado(String nome, int x, int y) {
+  public Peca(String cor, String nome, int x, int y) {
+    this.cor = cor;
     this.nome = nome;
     this.posicaoX = x;
     this.posicaoY = y;
@@ -27,6 +29,10 @@ public class Soldado {
 
   public int getPosicaoY() {
     return posicaoY;
+  }
+
+  public String getCor() {
+    return cor;
   }
 
 }

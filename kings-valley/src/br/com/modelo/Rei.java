@@ -2,18 +2,30 @@ package br.com.modelo;
 
 public class Rei {
 
-	private int posicao[];
+  private String nome;
+  private int posicaoX;
+  private int posicaoY;
 
-	public Rei() {
-		this.posicao = new int[2];
-	}
+  public Rei(String nome, int x, int y) {
+    this.nome = nome;
+    this.posicaoX = x;
+    this.posicaoY = y;
+  }
 
-	public int[] getPosicao() {
-		return posicao;
-	}
+  public String getNome() {
+    return nome;
+  }
 
-	public void setPosicao(int posicao[]) {
-		this.posicao = posicao;
-	}
+  public void setPosicao(int x, int y) {
+    this.posicaoX = x;
+    this.posicaoY = y;
+  }
 
+  public int getPosicaoX() {
+    return posicaoX;
+  }
+
+  public int getPosicaoY() {
+    return posicaoY;
+  }
 }
