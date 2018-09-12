@@ -57,10 +57,14 @@ public class Tabuleiro {
     int coluna = colunaOrigem;
     if (this.jogadaValida(linha + 1, coluna + 1)) {
       for (int i = coluna; i > 0; i++) {
-        if (this.ehPosicaoVazia(linha + 1, i + 1)) {
-          celulas[linha - 1][i + 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha + 1;
+        if(this.posicaoValida(linha + 1, i+1)){
+          if (this.ehPosicaoVazia(linha + 1, i + 1)) {
+            celulas[linha + 1][i + 1] = peca;
+            celulas[linha][i] = "-";
+            linha = linha + 1;
+          } else {
+            break;
+          }
         } else {
           break;
         }
