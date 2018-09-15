@@ -8,6 +8,7 @@ public class Tabuleiro {
   public Tabuleiro() {
     this.iniciar();
     this.posicionarPecas();
+    System.out.println("[INFO] Partida iniciada");
   }
 
   public void mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
@@ -43,66 +44,12 @@ public class Tabuleiro {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
-    if (this.jogadaValida(linha - 1, coluna - 1)) {
-      for (int i = coluna; i > 0; i--) {
-        if (this.posicaoValida(linha - 1, i - 1)) {
-          if (this.ehPosicaoVazia(linha - 1, i - 1)) {
-            celulas[linha - 1][i - 1] = peca;
-            celulas[linha][i] = "-";
-            linha = linha - 1;
-          } else {
-            break;
-          }
-        } else {
-          break;
-        }
-      }
-    } else if (this.jogadaValida(linha - 1, coluna + 1)) {
-      for (int i = coluna; i > TAMANHO; i++) {
-        if (this.ehPosicaoVazia(linha, i + 1)) {
-          celulas[linha - 1][i + 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha - 1;
-        } else {
-          break;
-        }
-      }
-    }
-  }
-
-  private void diagonalEsquerdaSuperior(int linhaOrigem, int colunaOrigem) {
-    String peca = celulas[linhaOrigem][colunaOrigem];
-    int linha = linhaOrigem;
-    int coluna = colunaOrigem;
-    if (this.jogadaValida(linha + 1, coluna + 1)) {
-      for (int i = coluna; i > 0; i++) {
-        if (this.ehPosicaoVazia(linha + 1, i + 1)) {
-          celulas[linha + 1][i + 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha + 1;
-        } else {
-          break;
-        }
-      }
-    } else {
-      for (int i = coluna; i > TAMANHO; i--) {
-        if (this.ehPosicaoVazia(linha, i - 1)) {
-          celulas[linha - 1][i - 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha - 1;
-        } else {
-          break;
-        }
-      }
-    }
-  }
-
-  private void paraEsquerda(int linhaOrigem, int colunaOrigem) {
-    String peca = celulas[linhaOrigem][colunaOrigem];
-    for (int i = 1; i < TAMANHO; i++) {
-      if (this.ehPosicaoVazia(linhaOrigem + i, colunaOrigem)) {
-        celulas[linhaOrigem + i][colunaOrigem] = peca;
-        celulas[linhaOrigem][colunaOrigem] = "-";
+    for (int i = 0; i < TAMANHO; i++) {
+      if (this.jogadaValida(linha - 1, coluna + 1)) {
+        celulas[linha - 1][coluna + 1] = peca;
+        celulas[linha][coluna] = "-";
+        linha = linha - 1;
+        coluna = coluna + 1;
       } else {
         break;
       }
@@ -113,29 +60,30 @@ public class Tabuleiro {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
-    if (this.jogadaValida(linha + 1, coluna + 1)) {
-      for (int i = coluna; i > 0; i++) {
-        if (this.posicaoValida(linha + 1, i + 1)) {
-          if (this.ehPosicaoVazia(linha + 1, i + 1)) {
-            celulas[linha + 1][i + 1] = peca;
-            celulas[linha][i] = "-";
-            linha = linha + 1;
-          } else {
-            break;
-          }
-        } else {
-          break;
-        }
+    for (int i = 0; i < TAMANHO; i++) {
+      if (this.jogadaValida(linha + 1, coluna + 1)) {
+        celulas[linha + 1][coluna + 1] = peca;
+        celulas[linha][coluna] = "-";
+        linha = linha + 1;
+        coluna = coluna + 1;
+      } else {
+        break;
       }
-    } else {
-      for (int i = coluna; i > TAMANHO; i--) {
-        if (this.ehPosicaoVazia(linha, i - 1)) {
-          celulas[linha - 1][i - 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha - 1;
-        } else {
-          break;
-        }
+    }
+  }
+
+  private void diagonalEsquerdaSuperior(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    for (int i = 0; i < TAMANHO; i++) {
+      if (this.jogadaValida(linha - 1, coluna - 1)) {
+        celulas[linha - 1][coluna - 1] = peca;
+        celulas[linha][coluna] = "-";
+        linha = linha - 1;
+        coluna = coluna - 1;
+      } else {
+        break;
       }
     }
   }
@@ -144,92 +92,75 @@ public class Tabuleiro {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
-    if (this.jogadaValida(linha - 1, coluna - 1)) {
-      for (int i = coluna; i > 0; i--) {
-        if (this.ehPosicaoVazia(linha - 1, i - 1)) {
-          celulas[linha - 1][i - 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha - 1;
-        } else {
-          break;
-        }
-      }
-    } else {
-      for (int i = coluna; i > TAMANHO; i++) {
-        if (this.ehPosicaoVazia(linha, i + 1)) {
-          celulas[linha + 1][i + 1] = peca;
-          celulas[linha][i] = "-";
-          linha = linha + 1;
-        } else {
-          break;
-        }
-      }
-    }
-  }
-
-  private void paraBaixo(int linhaOrigem, int colunaOrigem) {
-    String peca = celulas[linhaOrigem][colunaOrigem];
-    if (!this.posicaoValida(linhaOrigem, colunaOrigem + 1)) {
-      for (int i = colunaOrigem; i < TAMANHO; i++) {
-        if (this.ehPosicaoVazia(linhaOrigem, i + 1)) {
-          celulas[linhaOrigem][i + 1] = peca;
-          celulas[linhaOrigem][i] = "-";
-        } else {
-          break;
-        }
-      }
-    } else {
-      for (int i = colunaOrigem; i > 0; i--) {
-        if (this.ehPosicaoVazia(linhaOrigem, i - 1)) {
-          celulas[linhaOrigem][i - 1] = peca;
-          celulas[linhaOrigem][i] = "-";
-        } else {
-          break;
-        }
-      }
-    }
-  }
-
-  private void paraCima(int linhaOrigem, int colunaOrigem) {
-    String peca = celulas[linhaOrigem][colunaOrigem];
-    if (!this.posicaoValida(linhaOrigem, colunaOrigem + 1)) {
-      for (int i = colunaOrigem; i > 0; i--) {
-        if (this.ehPosicaoVazia(linhaOrigem, i - 1)) {
-          celulas[linhaOrigem][i - 1] = peca;
-          celulas[linhaOrigem][i] = "-";
-        } else {
-          break;
-        }
-      }
-    } else {
-      for (int i = colunaOrigem; i < TAMANHO; i++) {
-        if (this.ehPosicaoVazia(linhaOrigem, i + 1)) {
-          celulas[linhaOrigem][i + 1] = peca;
-          celulas[linhaOrigem][i] = "-";
-        } else {
-          break;
-        }
-      }
-    }
-  }
-
-  private void paraDireita(int linhaOrigem, int colunaOrigem) {
-    String peca = celulas[linhaOrigem][colunaOrigem];
-    for (int i = 1; i < TAMANHO; i++) {
-      if (this.ehPosicaoVazia(linhaOrigem + i, colunaOrigem)) {
-        celulas[linhaOrigem + i][colunaOrigem] = peca;
-        celulas[linhaOrigem][colunaOrigem] = "-";
+    for (int i = 0; i < TAMANHO; i++) {
+      if (this.jogadaValida(linha + 1, coluna - 1)) {
+        celulas[linha + 1][coluna - 1] = peca;
+        celulas[linha][coluna] = "-";
+        linha = linha + 1;
+        coluna = coluna - 1;
       } else {
         break;
       }
     }
   }
 
-  public boolean ganhador() {
-    if (!this.ehPosicaoVazia(2, 2)) {
-      return true;
-    } else {
-      return false;
+  private void paraBaixo(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    for (int i = linha; i < TAMANHO; i++) {
+      if (this.jogadaValida(i + 1, coluna)) {
+        celulas[i + 1][coluna] = peca;
+        celulas[linha][coluna] = "-";
+        linha = i + 1;
+      } else {
+        break;
+      }
+    }
+  }
+
+  private void paraCima(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    for (int i = linha; i > 0; i--) {
+      if (this.jogadaValida(i - 1, coluna)) {
+        celulas[i - 1][coluna] = peca;
+        celulas[linha][coluna] = "-";
+        linha = i - 1;
+      } else {
+        break;
+      }
+    }
+  }
+
+  private void paraEsquerda(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    for (int i = coluna; i > 0; i--) {
+      if (this.jogadaValida(linha, i - 1)) {
+        celulas[linha][i - 1] = peca;
+        celulas[linha][coluna] = "-";
+        coluna = i - 1;
+      } else {
+        break;
+      }
+    }
+  }
+
+  private void paraDireita(int linhaOrigem, int colunaOrigem) {
+    String peca = celulas[linhaOrigem][colunaOrigem];
+    int linha = linhaOrigem;
+    int coluna = colunaOrigem;
+    for (int i = coluna; i < TAMANHO; i++) {
+      if (this.jogadaValida(linha, i + 1)) {
+        celulas[linha][i + 1] = peca;
+        celulas[linha][coluna] = "-";
+        coluna = i + 1;
+      } else {
+        break;
+      }
     }
   }
 
@@ -245,7 +176,7 @@ public class Tabuleiro {
   }
 
   private boolean posicaoValida(int linha, int coluna) {
-    if (linha > 0 && linha < TAMANHO && coluna > 0 && coluna < TAMANHO) {
+    if (linha >= 0 && linha < TAMANHO && coluna >= 0 && coluna < TAMANHO) {
       return true;
     } else {
       return false;
@@ -255,6 +186,27 @@ public class Tabuleiro {
   private boolean ehPosicaoVazia(int linha, int coluna) {
     if (celulas[linha][coluna].equals("-")) {
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  private boolean ehPeca(int linha, int coluna) {
+    if (!celulas[linha][coluna].equals("-")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean ganhador() {
+    if (!this.ehPosicaoVazia(2, 2)) {
+      if (celulas[2][2].equals("Rc") || celulas[2][2].equals("Re")) {
+        System.out.println("[INFO] Ganhador!");
+        return true;
+      } else {
+        return false;
+      }
     } else {
       return false;
     }
@@ -284,9 +236,9 @@ public class Tabuleiro {
   }
 
   public void imprimirTabuleiro() {
-    System.out.println("\n  a  b  c  d  e");
+    System.out.println("\n  0  1  2  3  4");
     for (int linha = 0; linha < TAMANHO; linha++) {
-      System.out.print(linha + 1);
+      System.out.print(linha);
       for (int coluna = 0; coluna < TAMANHO; coluna++) {
         System.out.print(" " + celulas[linha][coluna] + " ");
       }
