@@ -1,25 +1,25 @@
 package br.com.principal;
 
-import java.util.ArrayList;
-
-import br.com.modelo.Tabuleiro;
+import java.rmi.Naming;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 
 public class Servidor {
 
-  private Tabuleiro tabuleiro;
-  private ArrayList<Cliente> jogadores;
-
   public static void main(String[] args) {
-    Tabuleiro tabuleiro = new Tabuleiro();
-    tabuleiro.imprimirTabuleiro();
-    tabuleiro.mover(0, 0, 0);
-    tabuleiro.imprimirTabuleiro();
-    tabuleiro.mover(3, 0, 0);
-    tabuleiro.imprimirTabuleiro();
-    tabuleiro.mover(0, 3, 2);
-    tabuleiro.imprimirTabuleiro();
-    tabuleiro.mover(2, 0, 0);
-    tabuleiro.imprimirTabuleiro();
-    tabuleiro.ganhador();
+    try {
+      LocateRegistry.createRegistry(1099);
+      System.out.println("[INFO] Aplicação registrada na porta 1099.");
+    } catch (RemoteException e) {
+      System.out.println("[INFO] Aplicação já esta em execução.");
+    }
+
+    try {
+      Naming.rebind("jogo", new Partida());
+      System.out.println("[INFO] Servidor do jogo está pronto.");
+    } catch (Exception e) {
+      System.out.println("[INFO] Falha ao suber servidor do jogo:");
+      e.printStackTrace();
+    }
   }
 }

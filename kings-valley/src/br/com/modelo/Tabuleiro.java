@@ -8,7 +8,7 @@ public class Tabuleiro {
   public Tabuleiro() {
     this.iniciar();
     this.posicionarPecas();
-    System.out.println("[INFO] Partida iniciada");
+    System.out.println("[INFO] Partida iniciada.");
   }
 
   public void mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
@@ -191,18 +191,10 @@ public class Tabuleiro {
     }
   }
 
-  private boolean ehPeca(int linha, int coluna) {
-    if (!celulas[linha][coluna].equals("-")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   public boolean ganhador() {
     if (!this.ehPosicaoVazia(2, 2)) {
       if (celulas[2][2].equals("Rc") || celulas[2][2].equals("Re")) {
-        System.out.println("[INFO] Ganhador!");
+        System.out.println("[INFO] Ganhador.");
         return true;
       } else {
         return false;
