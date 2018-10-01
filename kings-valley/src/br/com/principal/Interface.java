@@ -15,7 +15,7 @@ public interface Interface extends Remote {
 
   public int ehMinhaVez(int idJogador) throws RemoteException;;
 
-  public void obtemTabuleiro(int idJogador) throws RemoteException;;
+  public StringBuffer obtemTabuleiro(int idJogador) throws RemoteException;;
 
   public int movePeca(int idJogador, int linha, int coluna, int deslocamento) throws RemoteException;;
 

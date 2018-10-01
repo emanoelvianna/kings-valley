@@ -8,7 +8,6 @@ public class Tabuleiro {
   public Tabuleiro() {
     this.iniciar();
     this.posicionarPecas();
-    System.out.println("[INFO] Partida iniciada.");
   }
 
   public void mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
@@ -164,6 +163,7 @@ public class Tabuleiro {
     }
   }
 
+  // TODO: Consigo utilizar para informar ao usuário se a jogada é valida?
   private boolean jogadaValida(int linha, int coluna) {
     if (posicaoValida(linha, coluna)) {
       if (ehPosicaoVazia(linha, coluna))
@@ -204,6 +204,16 @@ public class Tabuleiro {
     }
   }
 
+  public String obterGanhador() {
+    if (this.ganhador()) {
+      if (celulas[2][2].equals("Rc"))
+        return new String("Clara");
+      else
+        return new String("Escura");
+    }
+    return new String();
+  }
+
   private void iniciar() {
     this.celulas = new String[TAMANHO][TAMANHO];
     for (int linha = 0; linha < TAMANHO; linha++) {
@@ -227,14 +237,18 @@ public class Tabuleiro {
     celulas[4][4] = (String) ("Se");
   }
 
-  public void imprimirTabuleiro() {
-    System.out.println("\n  0  1  2  3  4");
+  public StringBuffer obterEstadoDoTabuleiro() {
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("\n  0  1  2  3  4\n");
     for (int linha = 0; linha < TAMANHO; linha++) {
-      System.out.print(linha);
+      buffer.append(linha);
       for (int coluna = 0; coluna < TAMANHO; coluna++) {
-        System.out.print(" " + celulas[linha][coluna] + " ");
+        System.out.println(" " + celulas[linha][coluna] + " ");
+        buffer.append(" " + celulas[linha][coluna] + " ");
       }
-      System.out.print("\n");
+      buffer.append("\n");
     }
+    return buffer;
   }
+
 }

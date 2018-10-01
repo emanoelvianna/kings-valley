@@ -15,10 +15,10 @@ public class Servidor {
     }
 
     try {
-      Naming.rebind("jogo", new Partida());
+      Naming.rebind("jogo", new KingsValley());
       System.out.println("[INFO] Servidor do jogo está pronto.");
     } catch (Exception e) {
-      System.out.println("[INFO] Falha ao suber servidor do jogo:");
+      System.out.println("[INFO] Falha ao subir servidor do jogo:");
       e.printStackTrace();
     }
   }
