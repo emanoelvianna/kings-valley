@@ -13,6 +13,7 @@ import br.com.modelo.Tabuleiro;
 
 public class KingsValley extends UnicastRemoteObject implements Interface {
 
+  private static final int QUANTIDADE_MAXIMA = 500;
   private static final long serialVersionUID = 1234L;
   private Random aleatorio;
   private Map<Integer, Partida> partidas;
@@ -35,7 +36,7 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
       }
       Jogador jogador = new Jogador(idJogador, nomeJogador, "Escura");
       partida.adicionarJogador(jogador);
-    } else {
+    } else if (this.partidas.size() <= QUANTIDADE_MAXIMA) {
       partida = new Partida();
       Integer idPartida = aleatorio.nextInt();
       while (partidas.containsKey(idPartida)) {
@@ -48,14 +49,21 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
       }
       Jogador jogador = new Jogador(idJogador, nomeJogador, "Clara");
       partida.adicionarJogador(jogador);
+    } else {
+      return -2;
     }
     return idJogador;
   }
 
   @Override
   public int encerraPartida(int idJogador) throws RemoteException {
-    // TODO Auto-generated method stub
-    return 0;
+    Partida partida = this.obterPartidaPeloIdJogador(idJogador);
+    if (!partida.esperandoJogador() && !partida.tempoEsgotado())
+      if (!partida.partidaFinalizada()) {
+        this.encerraPartida(partida);
+        return 0;
+      }
+    return -1;
   }
 
   @Override
@@ -101,13 +109,12 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
         } else {
           return 3;
         }
+        // TODO: Como irá existir empate? E outras possibilidades?
       } else if (jogador.ehMinhaVez()) {
         return 1;
       } else {
         return 0;
       }
-    } else {
-      // TODO: Considerar os outros casos!
     }
     return -1;
   }
@@ -115,7 +122,9 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
   @Override
   public StringBuffer obtemTabuleiro(int idJogador) throws RemoteException {
     Partida partida = this.obterPartidaPeloIdJogador(idJogador);
-    return partida.obterTabuleiro().obterEstadoDoTabuleiro();
+    if (partida != null)
+      return partida.obterTabuleiro().obterEstadoDoTabuleiro();
+    return new StringBuffer();
   }
 
   @Override
@@ -164,6 +173,13 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
         partida = p.getValue();
     }
     return partida;
+  }
+
+  private void encerraPartida(Partida partida) {
+    for (Map.Entry<Integer, Partida> p : this.partidas.entrySet()) {
+      if (p.equals(partida))
+        this.partidas.remove(p);
+    }
   }
 
 }

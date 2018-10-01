@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Partida {
 
+  private static final int QUANTIDADE_JOGADORES = 2;
   private Tabuleiro tabuleiro;
   private List<Jogador> jogadores;
   private long tempo;
@@ -12,7 +13,7 @@ public class Partida {
 
   public Partida() {
     this.tabuleiro = new Tabuleiro();
-    this.jogadores = new ArrayList<>();
+    this.jogadores = new ArrayList<>(QUANTIDADE_JOGADORES);
     this.tempo = System.currentTimeMillis();
     this.finalizada = false;
   }
