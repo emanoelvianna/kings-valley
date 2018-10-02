@@ -7,6 +7,47 @@ public class Cliente {
 
   private static Scanner entrada;
 
+  public void estadoAtual(Interface partida, int retorno, int idJogador) {
+    try {
+      switch (retorno) {
+      case 2:
+        System.out.println("-----------------------------------");
+        System.out.println("[INFO] Parabéns, você é o vencedor!");
+        System.out.println("-----------------------------------");
+        System.out.println("[INFO] Tabuleiro atualizado:");
+        System.out.println(partida.obtemTabuleiro(idJogador));
+        break;
+      case 3:
+        System.out.println("-----------------------------------");
+        System.out.println("[INFO] Sinto muito, você perdeu!");
+        System.out.println("-----------------------------------");
+        System.out.println("[INFO] Tabuleiro atualizado:");
+        System.out.println(partida.obtemTabuleiro(idJogador));
+        break;
+      case 4:
+        System.out.println("---");
+        System.out.println("[INFO] Fim da partida, houve empate!");
+        System.out.println("---");
+        break;
+      case 5:
+        System.out.println("---");
+        System.out.println("[INFO] Fim da partida, vencedor por WO!");
+        System.out.println("---");
+        break;
+      case 6:
+        System.out.println("---");
+        System.out.println("[INFO] Fim da partida, perdedor por WO!");
+        System.out.println("---");
+        break;
+      default:
+        break;
+      }
+    } catch (Exception e) {
+      System.out.println("[INFO] Erro na conexão com o servidor:");
+      e.printStackTrace();
+    }
+  }
+
   public static void main(String[] args) {
     entrada = new Scanner(System.in);
 
@@ -88,7 +129,9 @@ public class Cliente {
             int coluna = entrada.nextInt();
             System.out.println("[INFO] Deslocamento:");
             int deslocamento = entrada.nextInt();
-            if (partida.movePeca(idJogador, linha, coluna, deslocamento) == 0) {
+            retorno = partida.movePeca(idJogador, linha, coluna, deslocamento);
+            System.out.println(retorno);
+            if (retorno == 0) {
               System.out.println("[INFO] Movimento invalido. Tente novamente.");
               System.out.println("[INFO] Faça sua jogada!");
               System.out.println("[INFO] Linha:");
@@ -97,10 +140,10 @@ public class Cliente {
               coluna = entrada.nextInt();
               System.out.println("[INFO] Deslocamento:");
               deslocamento = entrada.nextInt();
-            } else if(partida.movePeca(idJogador, linha, coluna, deslocamento) == -4) {
+              retorno = partida.movePeca(idJogador, linha, coluna, deslocamento);
+            } else if (retorno == -4) {
               System.out.println("[INFO] Esperando jogado do adversario");
             }
-            
             System.out.println("[INFO] Tabuleiro atualizado:");
             System.out.println(partida.obtemTabuleiro(idJogador));
           } else if (partida.ehMinhaVez(idJogador) == -2) {

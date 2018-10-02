@@ -11,32 +11,35 @@ public class Tabuleiro {
   }
 
   public boolean mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
-    switch (deslocamento) {
-    case 0:
-      return this.paraDireita(linhaOrigem, colunaOrigem);
-    case 1:
-      this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
-      break;
-    case 2:
-      this.paraBaixo(linhaOrigem, colunaOrigem);
-      break;
-    case 3:
-      this.diagonalEsquerdaInferior(linhaOrigem, colunaOrigem);
-      break;
-    case 4:
-      this.paraEsquerda(linhaOrigem, colunaOrigem);
-      break;
-    case 5:
-      this.diagonalEsquerdaSuperior(linhaOrigem, colunaOrigem);
-      break;
-    case 6:
-      this.paraCima(linhaOrigem, colunaOrigem);
-      break;
-    case 7:
-      this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
-      break;
+    if (this.posicaoValida(linhaOrigem, colunaOrigem) && this.posicaoContemPeca(linhaOrigem, colunaOrigem)) {
+      switch (deslocamento) {
+      case 0:
+        this.paraDireita(linhaOrigem, colunaOrigem);
+      case 1:
+        this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
+        break;
+      case 2:
+        this.paraBaixo(linhaOrigem, colunaOrigem);
+        break;
+      case 3:
+        this.diagonalEsquerdaInferior(linhaOrigem, colunaOrigem);
+        break;
+      case 4:
+        this.paraEsquerda(linhaOrigem, colunaOrigem);
+        break;
+      case 5:
+        this.diagonalEsquerdaSuperior(linhaOrigem, colunaOrigem);
+        break;
+      case 6:
+        this.paraCima(linhaOrigem, colunaOrigem);
+        break;
+      case 7:
+        this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
+        break;
+      }
+      return true;
     }
-    return true;
+    return false;
   }
 
   private void diagonalDireitaSuperior(int linhaOrigem, int colunaOrigem) {
@@ -148,7 +151,7 @@ public class Tabuleiro {
     }
   }
 
-  private boolean paraDireita(int linhaOrigem, int colunaOrigem) {
+  private void paraDireita(int linhaOrigem, int colunaOrigem) {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -158,10 +161,9 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         coluna = i + 1;
       } else {
-        return false;
+        break;
       }
     }
-    return true;
   }
 
   // TODO: Consigo utilizar para informar ao usuário se a jogada é valida?
@@ -186,6 +188,14 @@ public class Tabuleiro {
 
   private boolean ehPosicaoVazia(int linha, int coluna) {
     if (celulas[linha][coluna].equals("-")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private boolean posicaoContemPeca(int linha, int coluna) {
+    if (!celulas[linha][coluna].equals("-")) {
       return true;
     } else {
       return false;
