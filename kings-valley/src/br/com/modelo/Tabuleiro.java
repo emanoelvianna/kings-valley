@@ -10,11 +10,10 @@ public class Tabuleiro {
     this.posicionarPecas();
   }
 
-  public void mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
+  public boolean mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
     switch (deslocamento) {
     case 0:
-      this.paraDireita(linhaOrigem, colunaOrigem);
-      break;
+      return this.paraDireita(linhaOrigem, colunaOrigem);
     case 1:
       this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
       break;
@@ -37,6 +36,7 @@ public class Tabuleiro {
       this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
       break;
     }
+    return true;
   }
 
   private void diagonalDireitaSuperior(int linhaOrigem, int colunaOrigem) {
@@ -148,7 +148,7 @@ public class Tabuleiro {
     }
   }
 
-  private void paraDireita(int linhaOrigem, int colunaOrigem) {
+  private boolean paraDireita(int linhaOrigem, int colunaOrigem) {
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -158,9 +158,10 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         coluna = i + 1;
       } else {
-        break;
+        return false;
       }
     }
+    return true;
   }
 
   // TODO: Consigo utilizar para informar ao usuário se a jogada é valida?

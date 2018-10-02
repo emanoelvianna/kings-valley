@@ -139,10 +139,12 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
         Jogador jogador = partida.obterJogadorPeloId(idJogador);
         if (jogador.ehMinhaVez()) {
           Tabuleiro tabuleiro = partida.obterTabuleiro();
-          partida.jogadaRealizada(idJogador);
-          // TODO: Verificar se a jogada foi valida!
-          tabuleiro.mover(linha, coluna, deslocamento);
-          return 1;
+          if (tabuleiro.mover(linha, coluna, deslocamento)) {
+            partida.jogadaRealizada(idJogador);
+            return 1;
+          } else {
+            return 0;
+          }
         } else {
           return -4;
         }

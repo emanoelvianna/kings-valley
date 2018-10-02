@@ -19,50 +19,49 @@ public class Cliente {
       if (retorno == -2) {
         System.out.println("[INFO] Sinto muito, servidor está cheio. Tente novamente mais tarde");
       } else {
-        int idJogador = partida.registraJogador(jogador);
+        int idJogador = retorno;
         System.out.println("[INFO] Seu código id é: " + idJogador);
         System.out.println("[INFO] Partida esperando segundo jogador entrar...");
 
         retorno = partida.temPartida(idJogador);
         while (retorno == 0) {
-          System.out.println("[INFO] Partida esperando segundo jogador entrar...");
           retorno = partida.temPartida(idJogador);
-          try {
-            Thread.sleep(5000);
-            switch (retorno) {
-            case 1:
-              System.out.println("[INFO] Partida começou. Você é o primeiro a jogar!");
-              System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
-              System.out.println("---");
-              break;
-            case 2:
-              System.out.println("[INFO] Partida começou. Você é o segundo a jogar!");
-              System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
-              System.out.println("---");
-              break;
-            case -2:
-              System.out.println("[INFO] Tempo de espera esgotado. Partida será finalizada!");
-              partida.encerraPartida(idJogador);
-              break;
-            default:
-              System.out.println("[INFO] Ocoreu algum problema. Partida será finalizada!");
-              partida.encerraPartida(idJogador);
-              break;
-            }
-          } catch (InterruptedException ex) {
+          switch (retorno) {
+          case 1:
+            System.out.println("[INFO] Partida começou. Você é o primeiro a jogar!");
+            System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
+            System.out.println("---");
+            break;
+          case 2:
+            System.out.println("[INFO] Partida começou. Você é o segundo a jogar!");
+            System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
+            System.out.println("---");
+            break;
+          case -2:
+            System.out.println("[INFO] Tempo de espera esgotado. Partida será finalizada!");
+            partida.encerraPartida(idJogador);
+            break;
+          case -1:
+            System.out.println("[INFO] Ocoreu algum problema. Partida será finalizada!");
+            partida.encerraPartida(idJogador);
+            break;
           }
         }
 
         while (true) {
           if (partida.ehMinhaVez(idJogador) == 2) {
-            System.out.println("---");
+            System.out.println("-----------------------------------");
             System.out.println("[INFO] Parabéns, você é o vencedor!");
-            System.out.println("---");
+            System.out.println("-----------------------------------");
+            System.out.println("[INFO] Tabuleiro atualizado:");
+            System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 3) {
-            System.out.println("---");
+            System.out.println("-----------------------------------");
             System.out.println("[INFO] Sinto muito, você perdeu!");
-            System.out.println("---");
+            System.out.println("-----------------------------------");
+            System.out.println("[INFO] Tabuleiro atualizado:");
+            System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 4) {
             System.out.println("---");
@@ -89,7 +88,19 @@ public class Cliente {
             int coluna = entrada.nextInt();
             System.out.println("[INFO] Deslocamento:");
             int deslocamento = entrada.nextInt();
-            partida.movePeca(idJogador, linha, coluna, deslocamento);
+            if (partida.movePeca(idJogador, linha, coluna, deslocamento) == 0) {
+              System.out.println("[INFO] Movimento invalido. Tente novamente.");
+              System.out.println("[INFO] Faça sua jogada!");
+              System.out.println("[INFO] Linha:");
+              linha = entrada.nextInt();
+              System.out.println("[INFO] Coluna:");
+              coluna = entrada.nextInt();
+              System.out.println("[INFO] Deslocamento:");
+              deslocamento = entrada.nextInt();
+            } else if(partida.movePeca(idJogador, linha, coluna, deslocamento) == -4) {
+              System.out.println("[INFO] Esperando jogado do adversario");
+            }
+            
             System.out.println("[INFO] Tabuleiro atualizado:");
             System.out.println(partida.obtemTabuleiro(idJogador));
           } else if (partida.ehMinhaVez(idJogador) == -2) {
