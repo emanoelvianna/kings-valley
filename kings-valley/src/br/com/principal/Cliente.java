@@ -11,33 +11,29 @@ public class Cliente {
     try {
       switch (retorno) {
       case 2:
-        System.out.println("-----------------------------------");
         System.out.println("[INFO] Parabéns, você é o vencedor!");
-        System.out.println("-----------------------------------");
         System.out.println("[INFO] Tabuleiro atualizado:");
         System.out.println(partida.obtemTabuleiro(idJogador));
         break;
       case 3:
-        System.out.println("-----------------------------------");
         System.out.println("[INFO] Sinto muito, você perdeu!");
-        System.out.println("-----------------------------------");
         System.out.println("[INFO] Tabuleiro atualizado:");
         System.out.println(partida.obtemTabuleiro(idJogador));
         break;
       case 4:
-        System.out.println("---");
         System.out.println("[INFO] Fim da partida, houve empate!");
-        System.out.println("---");
+        System.out.println("[INFO] Tabuleiro atualizado:");
+        System.out.println(partida.obtemTabuleiro(idJogador));
         break;
       case 5:
-        System.out.println("---");
         System.out.println("[INFO] Fim da partida, vencedor por WO!");
-        System.out.println("---");
+        System.out.println("[INFO] Tabuleiro atualizado:");
+        System.out.println(partida.obtemTabuleiro(idJogador));
         break;
       case 6:
-        System.out.println("---");
         System.out.println("[INFO] Fim da partida, perdedor por WO!");
-        System.out.println("---");
+        System.out.println("[INFO] Tabuleiro atualizado:");
+        System.out.println(partida.obtemTabuleiro(idJogador));
         break;
       default:
         break;

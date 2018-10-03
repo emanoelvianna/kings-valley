@@ -11,38 +11,31 @@ public class Tabuleiro {
   }
 
   public boolean mover(int linhaOrigem, int colunaOrigem, int deslocamento) {
-    if (this.posicaoValida(linhaOrigem, colunaOrigem) && this.posicaoContemPeca(linhaOrigem, colunaOrigem)) {
+    if (this.posicaoContemPeca(linhaOrigem, colunaOrigem)) {
       switch (deslocamento) {
       case 0:
-        this.paraDireita(linhaOrigem, colunaOrigem);
+        return this.paraDireita(linhaOrigem, colunaOrigem);
       case 1:
-        this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
-        break;
+        return this.diagonalDireitaInferior(linhaOrigem, colunaOrigem);
       case 2:
-        this.paraBaixo(linhaOrigem, colunaOrigem);
-        break;
+        return this.paraBaixo(linhaOrigem, colunaOrigem);
       case 3:
-        this.diagonalEsquerdaInferior(linhaOrigem, colunaOrigem);
-        break;
+        return this.diagonalEsquerdaInferior(linhaOrigem, colunaOrigem);
       case 4:
-        this.paraEsquerda(linhaOrigem, colunaOrigem);
-        break;
+        return this.paraEsquerda(linhaOrigem, colunaOrigem);
       case 5:
-        this.diagonalEsquerdaSuperior(linhaOrigem, colunaOrigem);
-        break;
+        return this.diagonalEsquerdaSuperior(linhaOrigem, colunaOrigem);
       case 6:
-        this.paraCima(linhaOrigem, colunaOrigem);
-        break;
+        return this.paraCima(linhaOrigem, colunaOrigem);
       case 7:
-        this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
-        break;
+        return this.diagonalDireitaSuperior(linhaOrigem, colunaOrigem);
       }
-      return true;
     }
     return false;
   }
 
-  private void diagonalDireitaSuperior(int linhaOrigem, int colunaOrigem) {
+  private boolean diagonalDireitaSuperior(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -52,13 +45,16 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         linha = linha - 1;
         coluna = coluna + 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void diagonalDireitaInferior(int linhaOrigem, int colunaOrigem) {
+  private boolean diagonalDireitaInferior(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -68,13 +64,16 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         linha = linha + 1;
         coluna = coluna + 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void diagonalEsquerdaSuperior(int linhaOrigem, int colunaOrigem) {
+  private boolean diagonalEsquerdaSuperior(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -84,13 +83,16 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         linha = linha - 1;
         coluna = coluna - 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void diagonalEsquerdaInferior(int linhaOrigem, int colunaOrigem) {
+  private boolean diagonalEsquerdaInferior(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -100,13 +102,16 @@ public class Tabuleiro {
         celulas[linha][coluna] = "-";
         linha = linha + 1;
         coluna = coluna - 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void paraBaixo(int linhaOrigem, int colunaOrigem) {
+  private boolean paraBaixo(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -115,13 +120,16 @@ public class Tabuleiro {
         celulas[i + 1][coluna] = peca;
         celulas[linha][coluna] = "-";
         linha = i + 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void paraCima(int linhaOrigem, int colunaOrigem) {
+  private boolean paraCima(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -130,13 +138,16 @@ public class Tabuleiro {
         celulas[i - 1][coluna] = peca;
         celulas[linha][coluna] = "-";
         linha = i - 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void paraEsquerda(int linhaOrigem, int colunaOrigem) {
+  private boolean paraEsquerda(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -145,13 +156,16 @@ public class Tabuleiro {
         celulas[linha][i - 1] = peca;
         celulas[linha][coluna] = "-";
         coluna = i - 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  private void paraDireita(int linhaOrigem, int colunaOrigem) {
+  private boolean paraDireita(int linhaOrigem, int colunaOrigem) {
+    boolean movimentoRealizado = false;
     String peca = celulas[linhaOrigem][colunaOrigem];
     int linha = linhaOrigem;
     int coluna = colunaOrigem;
@@ -160,22 +174,19 @@ public class Tabuleiro {
         celulas[linha][i + 1] = peca;
         celulas[linha][coluna] = "-";
         coluna = i + 1;
+        movimentoRealizado = true;
       } else {
         break;
       }
     }
+    return movimentoRealizado;
   }
 
-  // TODO: Consigo utilizar para informar ao usuário se a jogada é valida?
   private boolean jogadaValida(int linha, int coluna) {
-    if (posicaoValida(linha, coluna)) {
+    if (posicaoValida(linha, coluna))
       if (ehPosicaoVazia(linha, coluna))
         return true;
-      else
-        return false;
-    } else {
-      return false;
-    }
+    return false;
   }
 
   private boolean posicaoValida(int linha, int coluna) {
