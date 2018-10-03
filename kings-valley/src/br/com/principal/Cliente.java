@@ -7,43 +7,6 @@ public class Cliente {
 
   private static Scanner entrada;
 
-  public void estadoAtual(Interface partida, int retorno, int idJogador) {
-    try {
-      switch (retorno) {
-      case 2:
-        System.out.println("[INFO] Parabéns, você é o vencedor!");
-        System.out.println("[INFO] Tabuleiro atualizado:");
-        System.out.println(partida.obtemTabuleiro(idJogador));
-        break;
-      case 3:
-        System.out.println("[INFO] Sinto muito, você perdeu!");
-        System.out.println("[INFO] Tabuleiro atualizado:");
-        System.out.println(partida.obtemTabuleiro(idJogador));
-        break;
-      case 4:
-        System.out.println("[INFO] Fim da partida, houve empate!");
-        System.out.println("[INFO] Tabuleiro atualizado:");
-        System.out.println(partida.obtemTabuleiro(idJogador));
-        break;
-      case 5:
-        System.out.println("[INFO] Fim da partida, vencedor por WO!");
-        System.out.println("[INFO] Tabuleiro atualizado:");
-        System.out.println(partida.obtemTabuleiro(idJogador));
-        break;
-      case 6:
-        System.out.println("[INFO] Fim da partida, perdedor por WO!");
-        System.out.println("[INFO] Tabuleiro atualizado:");
-        System.out.println(partida.obtemTabuleiro(idJogador));
-        break;
-      default:
-        break;
-      }
-    } catch (Exception e) {
-      System.out.println("[INFO] Erro na conexão com o servidor:");
-      e.printStackTrace();
-    }
-  }
-
   public static void main(String[] args) {
     entrada = new Scanner(System.in);
 
@@ -67,12 +30,10 @@ public class Cliente {
           case 1:
             System.out.println("[INFO] Partida começou. Você é o primeiro a jogar!");
             System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
-            System.out.println("---");
             break;
           case 2:
             System.out.println("[INFO] Partida começou. Você é o segundo a jogar!");
             System.out.println("[INFO] Seu adversario é o: " + partida.obtemOponente(idJogador));
-            System.out.println("---");
             break;
           case -2:
             System.out.println("[INFO] Tempo de espera esgotado. Partida será finalizada!");
@@ -87,33 +48,29 @@ public class Cliente {
 
         while (true) {
           if (partida.ehMinhaVez(idJogador) == 2) {
-            System.out.println("-----------------------------------");
             System.out.println("[INFO] Parabéns, você é o vencedor!");
-            System.out.println("-----------------------------------");
             System.out.println("[INFO] Tabuleiro atualizado:");
             System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 3) {
-            System.out.println("-----------------------------------");
             System.out.println("[INFO] Sinto muito, você perdeu!");
-            System.out.println("-----------------------------------");
             System.out.println("[INFO] Tabuleiro atualizado:");
             System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 4) {
-            System.out.println("---");
             System.out.println("[INFO] Fim da partida, houve empate!");
-            System.out.println("---");
+            System.out.println("[INFO] Tabuleiro atualizado:");
+            System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 5) {
-            System.out.println("---");
             System.out.println("[INFO] Fim da partida, vencedor por WO!");
-            System.out.println("---");
+            System.out.println("[INFO] Tabuleiro atualizado:");
+            System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 6) {
-            System.out.println("---");
             System.out.println("[INFO] Fim da partida, perdedor por WO!");
-            System.out.println("---");
+            System.out.println("[INFO] Tabuleiro atualizado:");
+            System.out.println(partida.obtemTabuleiro(idJogador));
             break;
           } else if (partida.ehMinhaVez(idJogador) == 1) {
             System.out.println("[INFO] Tabuleiro atualizado:");
