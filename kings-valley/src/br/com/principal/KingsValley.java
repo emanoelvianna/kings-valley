@@ -137,7 +137,6 @@ public class KingsValley extends UnicastRemoteObject implements Interface {
           } else {
             return 3;
           }
-          // TODO: Como irá existir empate? E outras possibilidades?
         } else if (jogador.ehMinhaVez()) {
           return 1;
         } else {
